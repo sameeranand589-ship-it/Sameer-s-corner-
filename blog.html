@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sameer's Corner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf7f2;
+      --ink: #1a1610;
+      --brown: #7c5c3a;
+      --tan: #c9a97a;
+      --muted: #8a7e70;
+      --card: #ffffff;
+      --border: #e8e0d4;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Source Serif 4', serif;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--ink);
+      color: var(--cream);
+      text-align: center;
+      padding: 3rem 1.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.015) 40px,
+        rgba(255,255,255,0.015) 80px
+      );
+    }
+    .site-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      letter-spacing: -0.5px;
+      position: relative;
+    }
+    .site-tagline {
+      color: var(--tan);
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      position: relative;
+    }
+    nav {
+      margin-top: 1.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      position: relative;
+    }
+    nav a {
+      color: rgba(250,247,242,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--tan); }
+
+    /* FEATURED POST */
+    .featured {
+      max-width: 860px;
+      margin: 3.5rem auto 0;
+      padding: 0 1.5rem;
+      animation: fadeUp 0.7s ease both;
+    }
+    .featured-label {
+      font-size: 0.75rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .featured-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      transition: box-shadow 0.3s;
+    }
+    .featured-card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.12); }
+    .featured-img {
+      background: linear-gradient(135deg, #3d2b1f 0%, #7c5c3a 50%, #c9a97a 100%);
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: rgba(255,255,255,0.15);
+    }
+    .featured-body {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .tag {
+      display: inline-block;
+      background: var(--brown);
+      color: #fff;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+    .featured-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      line-height: 1.3;
+      margin-bottom: 0.8rem;
+    }
+    .featured-body p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--brown);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .read-more:hover { gap: 10px; }
+
+    /* POSTS GRID */
+    .posts-section {
+      max-width: 860px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .post-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeUp 0.6s ease both;
+    }
+    .post-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+    .post-card:nth-child(2) { animation-delay: 0.1s; }
+    .post-card:nth-child(3) { animation-delay: 0.2s; }
+    .post-thumb {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    .thumb-1 { background: linear-gradient(135deg, #2c3e50, #4a6741); }
+    .thumb-2 { background: linear-gradient(135deg, #5d3a1a, #a0522d); }
+    .thumb-3 { background: linear-gradient(135deg, #1a2a4a, #2e5c8a); }
+    .post-content { padding: 1.25rem; }
+    .post-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      line-height: 1.35;
+      margin-bottom: 0.5rem;
+    }
+    .post-content p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .post-meta {
+      font-size: 0.75rem;
+      color: var(--tan);
+      letter-spacing: 0.5px;
+    }
+
+    /* NEWSLETTER */
+    .newsletter {
+      background: var(--ink);
+      color: var(--cream);
+      text-align: center;
+      padding: 3rem 1.5rem;
+      margin: 2rem 0 0;
+    }
+    .newsletter h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .newsletter p {
+      color: rgba(250,247,242,0.6);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .sub-form {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .sub-form input {
+      padding: 0.7rem 1.2rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: var(--cream);
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      width: 260px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .sub-form input::placeholder { color: rgba(250,247,242,0.4); }
+    .sub-form input:focus { border-color: var(--tan); }
+    .sub-form button {
+      padding: 0.7rem 1.5rem;
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .sub-form button:hover { background: var(--tan); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-img { min-height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="site-name">Sameer's Corner</div>
+    <div class="site-tagline">My thoughts and my journey</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Technology</a>
+      <a href="#">Life</a>
+      <a href="#">Travel</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <section class="featured">
+    <div class="featured-label">✦ Featured Post</div>
+    <div class="featured-card">
+      <div class="featured-img">✍</div>
+      <div class="featured-body">
+        <span class="tag">Technology</span>
+        <h2>Top Tech Tips Every Beginner Should Know</h2>
+        <p>From useful apps to smart shortcuts — here are the tech tips that make everyday life easier.</p>
+        <a href="#" class="read-more">Read Article →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="posts-section">
+    <div class="section-title">Latest Posts</div>
+    <div class="posts-grid">
+
+      <div class="post-card">
+        <div class="post-thumb thumb-1">🌿</div>
+        <div class="post-content">
+          <h3>5 Habits That Changed My Life</h3>
+          <p>Small daily habits that helped me grow, stay focused, and become a better version of myself.</p>
+          <div class="post-meta">April 18, 2026 &nbsp;·&nbsp; Habits</div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-thumb thumb-2">🏕️</div>
+        <div class="post-content">
+          <h3>Life Advice Nobody Tells You</h3>
+          <p>Honest lessons about life, money, and relationships that I wish someone had told me earlier.</p>
+          <div class="post-meta">April 12, 2026 &nbsp;·&nbsp; Life Advice</div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-thumb thumb-3">💡</div>
+        <div class="post-content">
+          <h3>Learning to Code at Any Age — My Story</h3>
+          <p>No degree, no experience, just curiosity. Here's how I started my coding journey and what I've learned so far.</p>
+          <div class="post-meta">April 5, 2026 &nbsp;·&nbsp; Tech Tips</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <h2>Stay in the loop</h2>
+    <p>Get new posts delivered straight to your inbox. No spam, ever.</p>
+    <div class="sub-form">
+      <input type="email" placeholder="your@email.com" />
+      <button>Subscribe</button>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Sameer's Corner · Built with HTML & CSS
+  </footer>
+
+</body>
+</html>
